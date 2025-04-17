@@ -1,6 +1,5 @@
---DADOS DE CLIENTE
---A)
---inserção de daddos clientes gerais
+--Resposta do Comando SQL item a) 
+--inserção de dados cliente	
 INSERT INTO MC_CLIENTE(
     nm_cliente,
     qt_estrelas,
@@ -86,9 +85,7 @@ INSERT INTO mc_cli_juridica(
 )
 VALUES (4, to_date('01/01/2024','DD/MM/YYYY'),'19.979.999/0001-80','444.888.999.110');
 
-
---INSERINDO ENDEREÇO PARA CADA CLIENTE 
-
+--inserção de dados endereço do cliente
 INSERT INTO MC_END_CLI(
     nr_cliente,
     cd_logradouro_cli,
@@ -140,8 +137,8 @@ INSERT INTO MC_END_CLI(
     st_end
 )VALUES (4,6,'4040','Esquina praça redonda',TO_DATE('01/02/2021 11:00:30','DD/MM/YYYY HH24:MI:SS'),null,'A');
 
+--Resposta do comando SQL item b)
 
---B)
 --CADASTRO DE UM NOVO CLIENTE COM UM MESMO LOGIN JÁ LOGADO
 INSERT INTO MC_CLIENTE(
        nm_cliente,
@@ -155,23 +152,15 @@ INSERT INTO MC_CLIENTE(
 )
 VALUES ('barretos churrascos RJ', '3 ',760,89,'A','adm.barretos@bchurras.com.br','+552170019880','barretos_churrasco','nelore40@')
 
-
---C)
--- Selecione um específico funcionário e atualize o Cargo e aplique 12% de aumento de salário.
---Escolhemos o funcionario Gavin Edward Mitchell para ter essa promoção e aumento de salario
-
+--Resposta do comando SQL item c)
 UPDATE MC_FUNCIONARIO
     SET 
-        DS_CARGO = 'Vendedor(a) IV', --atualização de cargo
-        VL_SALARIO = VL_SALARIO * 1.12 --aumento do salario
+        DS_CARGO = 'Vendedor(a) IV', 
+        VL_SALARIO = VL_SALARIO * 1.12 
     WHERE CD_FUNCIONARIO = 3;
 
 
-
---D)
--- Selecione um endereço de cliente e coloque o status como I(nativo) e preencha a data de término como sendo a data limite de entrega do trabalho na plataforma da Fiap. 
---Utilize a função to_date para registrar esse novo valor da data.
-
+--Resposta do comando SQL item d)
 UPDATE MC_END_CLI
     SET
         ST_END = 'I',
@@ -179,35 +168,68 @@ UPDATE MC_END_CLI
     WHERE NR_CLIENTE = 4 AND CD_LOGRADOURO_CLI = 6;
     
     
---E
--- TENTE ELIMINAR UM ESTADO QUE TENHA UMA CIDADE CADASTRADA
+--Resposta do comando SQL item e)
 DELETE FROM MC_ESTADO
     WHERE SG_ESTADO = 'SP';
 
 
---F
--- Selecione um produto e tente atualizar o status do produto com o status X
+--Resposta do comando SQL item f)
 UPDATE MC_PRODUTO
     SET
         ST_PRODUTO = 'X'
     WHERE CD_PRODUTO = 1;
 
-/*
-CREATE TABLE mc_sgv_visualizacao_video (
-    cd_visualizacao_video  NUMBER(10) GENERATED ALWAYS AS IDENTITY NOT NULL,
-    nr_cliente             NUMBER(10),
-    cd_produto             NUMBER(10) NOT NULL,
-    nr_sequencia           NUMBER(3) NOT NULL,
-    dt_visualizacao        DATE NOT NULL,
-    nr_hora_visualizacao   NUMBER(2) NOT NULL,
-    nr_minuto_video        NUMBER(2),
-    nr_segundo_video       NUMBER(2)
-);
-*/
+-- INSERINDO DOIS VALORES NA TABELA mc_sgv_visualizacao_video:
 INSERT INTO mc_sgv_visualizacao_video (
+    nr_cliente,
+    cd_produto,
     nr_sequencia,
     dt_visualizacao,
     nr_hora_visualizacao,
     nr_minuto_video,
     nr_segundo_video    
-) VALUES (1, TO_DATE('15/04/2025 21:40:00', 'DD/MM/YYYY HH24:MI:SS'), 21, 40,  0);
+) VALUES (1, 3, 1, TO_DATE('15/04/2025 21:40:15', 'DD/MM/YYYY HH24:MI:SS'), 21, 40, 15);
+
+INSERT INTO mc_sgv_visualizacao_video (
+    nr_cliente,
+    cd_produto,
+    nr_sequencia,
+    dt_visualizacao,
+    nr_hora_visualizacao,
+    nr_minuto_video,
+    nr_segundo_video    
+) VALUES (2, 3, 2, TO_DATE('01/04/2025 08:03:46', 'DD/MM/YYYY HH24:MI:SS'), 8, 3, 46);
+
+
+-- INSERINDO DOIS VALORES NA TABELA mc_sgv_sac:
+INSERT INTO mc_sgv_sac (
+    nr_cliente,
+    cd_produto,
+    cd_funcionario,
+    ds_detalhada_sac,
+    dt_abertura_sac,
+    hr_abertura_sac,
+    dt_atendimento,
+    hr_atendimento_sac,
+    nr_tempo_total_sac,
+    ds_detalhada_retorno_sac,
+    tp_sac,
+    st_sac,
+    nr_indice_satisfacao
+) VALUES ( 1, 3, 8,'Produto com defeito', TO_DATE('15/04/2025 13:40:15', 'DD/MM/YYYY HH24:MI:SS'), 2, TO_DATE('15/04/2025 15:40:46', 'DD/MM/YYYY HH24:MI:SS'), 15, 2, 'Ciente informou que seu produto esta com defeito porem não havia visto o video completo de como usar', 'D','F',8 );
+
+INSERT INTO mc_sgv_sac (
+    nr_cliente,
+    cd_produto,
+    cd_funcionario,
+    ds_detalhada_sac,
+    dt_abertura_sac,
+    hr_abertura_sac,
+    dt_atendimento,
+    hr_atendimento_sac,
+    nr_tempo_total_sac,
+    ds_detalhada_retorno_sac,
+    tp_sac,
+    st_sac,
+    nr_indice_satisfacao
+) VALUES ( 2, 1, 9,'Otimo notebook, rapido, bonito e barato', TO_DATE('01/04/2025 02:40:15', 'DD/MM/YYYY HH24:MI:SS'), 2, null, null, null, null, 'E','F',10 );
